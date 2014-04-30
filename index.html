@@ -20,13 +20,13 @@
 <script>
 $(document).ready(function(e){
 	var $serverURL = "http://robert.alder.net.au/";
-	$("#mainContent .container").append("<br /><br /><br />");
+	$("#mainContent .container").html("<br /><br /><br />");
 
-	$("#updateBtn").bind("click", function(e){
-		e.preventDefault();
-		//$("#mainContent .container").html("<br /><br /><br />");
+	$("header").bind("click", function(e){
+		//e.preventDefault();
+		$("#mainContent .container").html("<br /><br /><br />");
 		$("#mainContent .container").load($serverURL + "updateLibrary.php", function(){
-			$("#mainContent .container").append("<br /><br /><br />Media Library updated!");
+			$("header").append("Media Library updated!");
 		});
 		display($serverURL);
 	});
