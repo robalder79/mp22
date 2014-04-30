@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+<title>Media Portal</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="normalize.css">
+<link rel="stylesheet" href="bobs-skeleton.css">
+<link rel="stylesheet" href="style.css">
+<script src="js/jquery2.js"></script>
+<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<!--<script src="scripts/jquery2.js"></script>-->
+<!--[if IE]>
+	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<!--[if lt IE 9]>
+	<script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
+<![endif]-->
+<script>
+$(document).ready(function(e){
+	var $serverURL = "http://robert.alder.net.au/";
+	$("#mainContent .container").append("<br /><br /><br />");
+
+	$("#updateBtn").bind("click", function(e){
+		e.preventDefault();
+		$("#mainContent .container").html("<br /><br /><br />");
+		$("#mainContent .container").load($serverURL + "updateLibrary.php", function(){
+			$("#mainContent .container").append("<br /><br /><br />Media Library updated!");
+		});
+		display($serverURL);
+	});
+	
+	display($serverURL);
+});
+
+function display($serverURL){
+	// Get something back from the server via JSONP
+	$.getJSON($serverURL + "php-return-jsonp.php?jsoncallback=?", function(data){
+		$.each(data, function($key, $val){
+			$("#mainContent .container").append("<br /><a href='" + $serverURL + $val + "'>" + $val + "</a></p><p>(Returned from remote server '" + $serverURL + "' via JSONP)</p>");
+		});
+	});
+}
+</script>
+</head>
+
+<body>
+
+<header>
+	<nav>
+    	<ul id="mainMenu"><a href="#" id="updateBtn">Update</a></ul>
+    </nav>
+</header>
+
+<div id="subMenuMovies" class="subMenu">
+	<ul class="subMenuGroup"></ul>
+</div>
+<div id="subMenuExt"></div>
+
+<section id="mainContent">
+	<div class="container"></div>
+</section>
+
+</body>
+</html>
