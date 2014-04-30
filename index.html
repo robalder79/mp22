@@ -20,13 +20,15 @@
 <script>
 $(document).ready(function(e){
 	var $serverURL = "http://robert.alder.net.au/";
-	$("#mainContent .container").html("<br /><br /><br />");
-
+	$("header").html("Tap to update.");
+	
 	$("header").bind("click", function(e){
 		//e.preventDefault();
+		$("header").html("Updating...");
 		$("#mainContent .container").html("<br /><br /><br />");
-		$("#mainContent .container").load($serverURL + "updateLibrary.php", function(){
-			$("header").append("Media Library updated!");
+		$("header").load($serverURL + "updateLibrary.php", function(){
+			$("header").html("");
+			$("header").append("Media Library updated! Tap to update.");
 		});
 		display($serverURL);
 	});
@@ -35,6 +37,7 @@ $(document).ready(function(e){
 });
 
 function display($serverURL){
+	$("#mainContent .container").html("<br /><br /><br />");
 	// Get something back from the server via JSONP
 	$.getJSON($serverURL + "php-return-jsonp.php?jsoncallback=?", function(data){
 		$.each(data, function($key, $val){
@@ -49,7 +52,7 @@ function display($serverURL){
 
 <header>
 	<nav>
-    	<ul id="mainMenu"><a href="#" id="updateBtn">Update</a></ul>
+    	<ul id="mainMenu"></ul>
     </nav>
 </header>
 
