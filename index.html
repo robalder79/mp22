@@ -24,7 +24,7 @@ $(document).ready(function(e){
 
 	$("#updateBtn").bind("click", function(e){
 		e.preventDefault();
-		$("#mainContent .container").html("<br /><br /><br />");
+		//$("#mainContent .container").html("<br /><br /><br />");
 		$("#mainContent .container").load($serverURL + "updateLibrary.php", function(){
 			$("#mainContent .container").append("<br /><br /><br />Media Library updated!");
 		});
